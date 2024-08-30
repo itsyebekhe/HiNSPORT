@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
-    <title>HiN SPORT</title>
+    <title>Channel Selector</title>
     <!-- Include Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Include Font Awesome -->
@@ -13,11 +13,17 @@
     <style>
         body {
             padding: 20px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        body.dark-mode {
+            background-color: #343a40;
+            color: #f8f9fa;
         }
         #channelFrame {
             width: 100%;
             height: 600px;
             border: 0;
+            border-radius: 5px;
         }
     </style>
     <script>
@@ -151,6 +157,12 @@
             }
         }
 
+        function toggleDarkMode() {
+            const body = document.body;
+            body.classList.toggle('dark-mode');
+            localStorage.setItem('dark-mode', body.classList.contains('dark-mode'));
+        }
+
         window.onload = function() {
             const select = document.getElementById('channelSelect');
             for (const channel in channels) {
@@ -159,16 +171,41 @@
                 option.textContent = channel;
                 select.appendChild(option);
             }
+
+            // Dark mode toggle
+            const toggleButton = document.getElementById('modeToggle');
+            toggleButton.addEventListener('click', toggleDarkMode);
+
+            // Retrieve dark mode state from localStorage
+            const darkModeEnabled = localStorage.getItem('dark-mode') === 'true';
+            if (darkModeEnabled) {
+                document.body.classList.add('dark-mode');
+            }
+
+            // Adblock feature
+            const iframe = document.getElementById('channelFrame');
+            iframe.onload = function() {
+                const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                const links = iframeDoc.getElementsByTagName('a');
+                for (let i = 0; i < links.length; i++) {
+                    links[i].target = '_blank';
+                    links[i].onclick = function(event) {
+                        event.preventDefault();
+                        alert('Ads and pop-ups are blocked.');
+                    };
+                }
+            };
         };
     </script>
 </head>
 <body>
     <div class="container">
-        <h1 class="text-center mt-4">HiN SPORT</h1>
-        <div class="mb-3">
+        <h1 class="text-center mt-4">Channel Selector</h1>
+        <div class="mb-3 d-flex justify-content-between align-items-center">
             <label for="channelSelect" class="form-label">Select a Channel:</label>
-            <select id="channelSelect" class="form-select" onchange="loadChannel()"></select>
+            <button id="modeToggle" class="btn btn-outline-secondary"><i class="fas fa-adjust"></i></button>
         </div>
+        <select id="channelSelect" class="form-select mb-3" onchange="loadChannel()"></select>
         <iframe id="channelFrame" class="border rounded" title="Channel Stream"></iframe>
     </div>
 </body>
