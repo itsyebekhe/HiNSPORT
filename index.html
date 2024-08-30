@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>Channel Selector</title>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Include Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding: 20px;
+        }
+        #channelFrame {
+            width: 100%;
+            height: 600px;
+            border: 0;
+        }
+    </style>
+    <script>
+        const channels = {
+            "Sky Sports Main Event": "//stream.crichd.vip/update/skys1.php",
+            "Sky Sports Cricket": "//stream.crichd.vip/update/skys2.php",
+            "Sky Sports Action": "//stream.crichd.vip/update/skys3.php",
+            "Sky Sports Golf": "//stream.crichd.vip/update/skys4.php",
+            "Sky Sports Premier League": "//stream.crichd.vip/update/skys5.php",
+            "Sky Sports Football": "//stream.crichd.vip/update/skysfotb.php",
+            "Sky Sports Arena": "//stream.crichd.vip/update/skysarena.php",
+            "Sky Sports F1": "//stream.crichd.vip/update/skyf1.php",
+            "Sky Sports Mix": "//stream.crichd.vip/update/skysmix.php",
+            "Sky Sports News": "//stream.crichd.vip/update/skysn.php",
+            "Sky Sports Tennis": "//stream.crichd.vip/update/skystennis.php",
+            "TNT Sports 1": "//stream.crichd.vip/update/bt1.php",
+            "TNT Sports 2": "//stream.crichd.vip/update/bt2.php",
+            "TNT Sports 3": "//stream.crichd.vip/update/bteu.php",
+            "TNT Sports 4": "//stream.crichd.vip/update/espn.php",
+            "Eurosport 1": "//stream.crichd.vip/update/euro1.php",
+            "Eurosport 2": "//stream.crichd.vip/update/euro2.php",
+            "Viaplay Sports 1": "//stream.crichd.vip/update/premier.php",
+            "Viaplay Sports 2": "//stream.crichd.vip/update/ch2.php",
+            "Viaplay Sports Xtra": "//stream.crichd.vip/update/ch3.php",
+            "LaLiga TV": "//stream.crichd.vip/update/laligauk.php",
+            "Sky Sport 1 New Zealand": "//stream.crichd.vip/update/sky1nz.php",
+            "Sky Sport 2 New Zealand": "//stream.crichd.vip/update/sky2nz.php",
+            "Sky Sport 3 New Zealand": "//stream.crichd.vip/update/sky3nz.php",
+            "Sky Sport 4 New Zealand": "//stream.crichd.vip/update/sky4nz.php",
+            "Sky Sport 5 New Zealand": "//stream.crichd.vip/update/sky5nz.php",
+            "Sky Sport 6 New Zealand": "//stream.crichd.vip/update/sky6nz.php",
+            "Sky Sport 7 New Zealand": "//stream.crichd.vip/update/sky7nz.php",
+            "Sky Sport 8 New Zealand": "//stream.crichd.vip/update/sky8nz.php",
+            "Sky Sport 9 New Zealand": "//stream.crichd.vip/update/sky9nz.php",
+            "SuperSport Football": "//stream.crichd.vip/update/ssfotbal.php",
+            "SuperSport Premier": "//stream.crichd.vip/update/sspremier.php",
+            "SuperSport LaLiga": "//stream.crichd.vip/update/sslaliga.php",
+            "SuperSport Rugby": "//stream.crichd.vip/update/ssrugby.php",
+            "SuperSport Grandstand": "//stream.crichd.vip/update/ssgrandstand.php",
+            "SuperSport Tennis": "//stream.crichd.vip/update/sstennis.php",
+            "SuperSport Action": "//stream.crichd.vip/update/ssaction.php",
+            "SuperSport Golf": "//stream.crichd.vip/update/ssgolf.php",
+            "SuperSport Maximo": "//stream.crichd.vip/update/ssmeximo.php",
+            "Fox 502": "//stream.crichd.vip/update/fox502.php",
+            "Fox 503": "//stream.crichd.vip/update/fox503.php",
+            "Fox 504": "//stream.crichd.vip/update/fox504.php",
+            "Fox 505": "//stream.crichd.vip/update/fox505.php",
+            "Fox 506": "//stream.crichd.vip/update/fox506.php",
+            "SuperSport PSL": "//stream.crichd.vip/update/sspsl.php",
+            "WWE Network": "//stream.crichd.vip/update/wwe.php",
+            "PTV Sports": "//stream.crichd.vip/update/ptv.php",
+            "Star Sports 1": "//stream.crichd.vip/update/star.php",
+            "Willow Cricket": "//stream.crichd.vip/update/willowcricket.php",
+            "SuperSport Cricket": "//stream.crichd.vip/update/sscricket.php",
+            "Ten Sports": "//stream.crichd.vip/update/tensp.php",
+            "Star Sports Hindi": "//stream.crichd.vip/update/star1hi.php",
+            "Star Sports 2": "//stream.crichd.vip/update/star2.php",
+            "Willow Cricket Extra": "//stream.crichd.vip/update/willowextra.php",
+            "A Sports HD": "//stream.crichd.vip/update/asportshd.php",
+            "Fox Cricket 501": "//stream.crichd.vip/update/fox501.php",
+            "ESPN US": "//stream.crichd.vip/update/espnus.php",
+            "ESPN 2 US": "//stream.crichd.vip/update/espn2us.php",
+            "Geo Super PSL T20": "//stream.crichd.vip/update/geo.php",
+            "Sony ESPN": "//stream.crichd.vip/update/sonymax.php",
+            "Sony Six IPL": "//stream.crichd.vip/update/sonysix.php",
+            "Sky Sports Box Office": "//stream.crichd.vip/update/skybox.php",
+            "Ten 1": "//stream.crichd.vip/update/ten1.php",
+            "Bein Sports 3 English": "//stream.crichd.vip/update/bein3en.php",
+            "Bein Sports 1 English": "//stream.crichd.vip/update/bein1en.php",
+            "Bein Sports 2 English": "//stream.crichd.vip/update/bein2en.php",
+            "Bein Sports 1 AR": "//stream.crichd.vip/update/bein1arab.php",
+            "Bein Sports 2 AR": "//stream.crichd.vip/update/bein2arab.php",
+            "Bein Sports 3 AR": "//stream.crichd.vip/update/bein3arab.php",
+            "Bein Sports 4 AR": "//stream.crichd.vip/update/bein4arab.php",
+            "Bein Sports 5 AR": "//stream.crichd.vip/update/bein5arab.php",
+            "Bein Sports 6 AR": "//stream.crichd.vip/update/bein6arab.php",
+            "Bein Sports 7 AR": "//stream.crichd.vip/update/bein7arab.php",
+            "ITV 4 UK": "//stream.crichd.vip/update/itv4.php",
+            "beIN SPORTS 1 Premium": "//stream.crichd.vip/update/bein1prem.php",
+            "beIN SPORTS 2 Premium": "//stream.crichd.vip/update/bein2prem.php",
+            "beIN SPORTS 3 Premium": "//stream.crichd.vip/update/bein3prem.php",
+            "beIN SPORTS 1 FR": "//stream.crichd.vip/update/bein1fr.php",
+            "beIN SPORTS 2 FR": "//stream.crichd.vip/update/bein2fr.php",
+            "beIN SPORTS 3 FR": "//stream.crichd.vip/update/bein3fr.php",
+            "Gazi TV BD": "//stream.crichd.vip/update/gazitv.php",
+            "Bein Sports XTRA 1 HD": "//stream.crichd.vip/update/bein1xtra.php",
+            "Bein Sports XTRA 2 HD": "//stream.crichd.vip/update/bein2xtra.php",
+            "beIN Sports Canada HD": "//stream.crichd.vip/update/beinca.php",
+            "DAZN 1 España": "//stream.crichd.vip/update/dazn1es.php",
+            "M. LaLiga": "//stream.crichd.vip/update/mlaliga.php",
+            "DAZN LALIGA España": "//stream.crichd.vip/update/daznlaliga.php",
+            "beIN Sport USA": "//stream.crichd.vip/update/beinusa.php",
+            "beIN Sports MAX 2": "//stream.crichd.vip/update/bein2max.php",
+            "Gol Mundial ES": "//stream.crichd.vip/update/golmun.php",
+            "FOX Sports 1 USA": "//stream.crichd.vip/update/fox1usa.php",
+            "beIN Sports 1 France": "//stream.crichd.vip/update/bein1france.php",
+            "beIN Sports 2 France": "//stream.crichd.vip/update/bein2france.php",
+            "Gol Mundial 2 ES": "//stream.crichd.vip/update/golmun2.php",
+            "Arena Sport 6 Croatia": "//stream.crichd.vip/update/arena6cro.php",
+            "Sky Sports F1 BackUp": "//stream.crichd.vip/update/skyf1video.php",
+            "Sky Sports Cricket UK Backup": "//stream.crichd.vip/update/skys2video.php",
+            "FOX Sports 2 USA": "//stream.crichd.vip/update/fox2usa.php",
+            "FOX Soccer Plus": "//stream.crichd.vip/update/foxsoccerplus.php",
+            "Channel 1 (BBC ONE)": "//stream.crichd.vip/update/ch1.php",
+            "Channel 4 ( ITV UK )": "//stream.crichd.vip/update/ch4.php",
+            "Channel 5 ( BBC2 )": "//stream.crichd.vip/update/ch5.php",
+            "Channel 6 - SuperSport Variety 1": "//stream.crichd.vip/update/ch6.php",
+            "Channel 7 - SuperSport Variety 2": "//stream.crichd.vip/update/ch7.php",
+            "Channel 8 - SuperSport Variety 3": "//stream.crichd.vip/update/ch8.php",
+            "Channel 9 - SuperSport Variety 4": "//stream.crichd.vip/update/ch9.php",
+            "Ch10 ( BT Sport 5 )": "//stream.crichd.vip/update/ch10.php",
+            "Ch11 ( BT Sport 6 )": "//stream.crichd.vip/update/ch11.php",
+            "Ch12 ( BT Sport 7 )": "//stream.crichd.vip/update/ch12.php",
+            "Ch13 ( BT Sport 8 )": "//stream.crichd.vip/update/ch13.php",
+            "Ch14 ( BT Sport 9 )": "//stream.crichd.vip/update/ch14.php",
+            "Ch15 ( BT Sport 10 )": "//stream.crichd.vip/update/ch15.php",
+            "Channel 16": "//stream.crichd.vip/update/ch16.php",
+            "Channel 17": "//stream.crichd.vip/update/ch17.php",
+            "Channel 18": "//stream.crichd.vip/update/ch18.php",
+            "Channel 19 ( Sports18 HD )": "//stream.crichd.vip/update/ch19.php",
+            "Channel 20": "//stream.crichd.vip/update/ch20.php",
+            "HIGH HD 3": "//stream.crichd.vip/update/mls.php"
+        };
+
+        function loadChannel() {
+            const select = document.getElementById('channelSelect');
+            const iframe = document.getElementById('channelFrame');
+            const selectedChannel = select.value;
+            if (selectedChannel && channels[selectedChannel]) {
+                iframe.src = channels[selectedChannel];
+            }
+        }
+
+        window.onload = function() {
+            const select = document.getElementById('channelSelect');
+            for (const channel in channels) {
+                const option = document.createElement('option');
+                option.value = channel;
+                option.textContent = channel;
+                select.appendChild(option);
+            }
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mt-4">Channel Selector</h1>
+        <div class="mb-3">
+            <label for="channelSelect" class="form-label">Select a Channel:</label>
+            <select id="channelSelect" class="form-select" onchange="loadChannel()"></select>
+        </div>
+        <iframe id="channelFrame" class="border rounded" title="Channel Stream"></iframe>
+    </div>
+</body>
+</html>
