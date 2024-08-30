@@ -185,19 +185,6 @@
                 document.body.classList.add('dark-mode');
             }
 
-            // Adblock feature
-            const iframe = document.getElementById('channelFrame');
-            iframe.onload = function() {
-                const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                const links = iframeDoc.getElementsByTagName('a');
-                for (let i = 0; i < links.length; i++) {
-                    links[i].target = '_blank';
-                    links[i].onclick = function(event) {
-                        event.preventDefault();
-                        alert('Ads and pop-ups are blocked.');
-                    };
-                }
-            };
         };
     </script>
 </head>
